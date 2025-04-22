@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orientation</title>
+    <style>
+        main {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>screen.orientation = <span id="screen">???</span> @ <span id="angle">???</span>deg</h1>
+        <h2>window.orientation = <span id="window">???</span></h2>
+    </main>
+    <script>
+        /** @type HTMLSpanElement */
+        const screenSpan = document.querySelector("#screen");
+        /** @type HTMLSpanElement */
+        const angleSpan = document.querySelector("#angle");
+
+        /** @type HTMLSpanElement */
+        const windowSpan = document.querySelector("#window");
+        
+        // yes, screen.orientation has events for listening to changes.
+        // we avoid this in the rare case we have a desynchrony between screen
+        // and window
+        function animate() {
+            requestAnimationFrame(animate);
+
+            screenSpan.textContent = screen.orientation.type;
+            angleSpan.textContent = screen.orientation.angle;
+
+            windowSpan.textContent = window.orientation || 'null';
+        }
+
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
